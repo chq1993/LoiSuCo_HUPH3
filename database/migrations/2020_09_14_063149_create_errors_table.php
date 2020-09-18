@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnswersTable extends Migration
+class CreateErrorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
+        Schema::create('errors', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('value_answer');
-            $table->string('label', 255);
+            $table->string('error',200);
+            $table->string('description',1500);
+            $table->string('upLoadFile', 500)->nullable();
+            $table->string('status',50);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
+        Schema::dropIfExists('errors');
     }
 }

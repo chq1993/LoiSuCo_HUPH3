@@ -41,12 +41,9 @@ Route::group(['middleware' => 'check_auth'], function () {
     Route::get('/logout', 'UserController@logout')->name('user.logout');
     Route::get('/dashboard', 'UserController@show_dashboard');
     // public
-    //copy k sửa a
     Route::resource('peer-assessment', 'PeerAssessmentController');
     Route::resource('subordinate-assessment', 'SubordinateAssessmentController');
     Route::resource('superior-assessment', 'SuperiorAssessmentController');
-    // Route::resource('subordinate-assessment', 'ConfigQuestionController');
-    // Route::resource('superior-assessment', 'ConfigQuestionController');
     Route::post('user/updaterole', 'UserController@updaterole')->name('user.updaterole');
     Route::get('/', function () {
         return view('layouts.admin');
@@ -77,3 +74,4 @@ Route::group(['middleware' => 'check_auth'], function () {
         });
     });
 });
+
