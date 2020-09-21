@@ -21,6 +21,11 @@ class CreateJobsTable extends Migration
             $table->foreign('division_id')->references('id')->on('divisions')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('position_id')->unsigned()->nullable();
             $table->foreign('position_id')->references('id')->on('positions')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('status')->default(true);
+            $table->float('percentageOfRole');
+            $table->date('start_time');
+            $table->date('end_time')->nullable();
+            $table->string('guard_name', 500)->nullable();
             $table->timestamps();
         });
     }
