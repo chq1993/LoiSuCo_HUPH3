@@ -196,10 +196,10 @@
                                 </span></a>
                             <ul class="submenu">
                                 <li><a href="{{ route('user.store') }}">Quản lý người dùng</a></li>
-                                <li><a href="{{ route('role-manage.store') }}">Phân quyền người dùng</a></li>
+                                <li><a href="{{ route('job.store') }}">Phân quyền người dùng</a></li>
                                 <li><a href="{{ route('division-manage.index') }}">Đơn vị công tác</a></li>
                                 <li><a href="{{ route('position-manage.index') }}">Chức vụ</a></li>
-                                <li><a href="{{ route('plan-manage.index') }}">Kế hoạch đánh giá</a></li>
+                                <li><a href="#">Kế hoạch đánh giá</a></li>
                             </ul>
                         </li>
                         <li>
@@ -207,9 +207,9 @@
                                     hàng câu hỏi <span class="float-right menu-arrow"><i
                                             class="mdi mdi-plus"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="{{ route('question-manage.index') }}">Quản lý câu hỏi</a></li>
-                                <li><a href="{{ route('form-manage.index') }}">Quản lý mẫu phiếu</a></li>
-                                <li><a href="{{ route('answer-manage.index') }}">Quản lý câu trả lời</a></li>
+                                <li><a href="#">Quản lý câu hỏi</a></li>
+                                <li><a href="#">Quản lý mẫu phiếu</a></li>
+                                <li><a href="#">Quản lý câu trả lời</a></li>
                             </ul>
                         </li>
                         <li>
@@ -219,9 +219,9 @@
                                 </span>
                             </a>
                             <ul class="submenu">
-                                <li><a href="{{ route('peer-assessment.index') }}">Đánh giá đồng cấp</a></li>
-                                <li><a href="{{ route('subordinate-assessment.index') }}">Đánh giá cấp dưới</a></li>
-                                <li><a href="{{ route('superior-assessment.index') }}">Đánh giá cấp trên</a></li>
+                                <li><a href="#">Đánh giá đồng cấp</a></li>
+                                <li><a href="#">Đánh giá cấp dưới</a></li>
+                                <li><a href="#">Đánh giá cấp trên</a></li>
 
                             </ul>
                         </li>
@@ -230,9 +230,9 @@
                             <a class="waves-effect"><i class="fas fa-chalkboard-teacher"></i><span> Đánh giá<span
                                         class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span></a>
                             <ul class="submenu">
-                                <li><a href="{{ route('peer-assessment.create') }}">Đánh giá đồng cấp</a></li>
-                                <li><a href="{{ route('subordinate-assessment.create') }}">Đánh giá cấp dưới</a></li>
-                                <li><a href="{{ route('superior-assessment.create') }}">Đánh giá cấp trên</a></li>
+                                <li><a href="#">Đánh giá đồng cấp</a></li>
+                                <li><a href="#">Đánh giá cấp dưới</a></li>
+                                <li><a href="#">Đánh giá cấp trên</a></li>
                             </ul>
                         </li>
                         @endif

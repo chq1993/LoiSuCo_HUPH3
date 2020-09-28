@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Position;
-use App\Division;
 use App\Jobs;
+use App\User;
+use App\Division;
+use App\Position;
+
+use Illuminate\Http\Request;
+use Illuminate\Queue\Jobs\Job;
 use Illuminate\Support\Facades\DB as DB;
 
 class JobController extends Controller
@@ -17,6 +20,11 @@ class JobController extends Controller
      */
     public function index()
     {
+
+        $user = User::all();
+        $division = Division::all();
+        $position = Position::all();
+
         $job = DB::table('jobs')
             ->join('user', 'jobs.user_id', '=', 'user.id')
             ->join('positions', 'jobs.position_id', '=', 'positions.id')
@@ -36,7 +44,10 @@ class JobController extends Controller
             ->get();
 
         return view('jobs.index', [
-            'job' => $job
+            'job' => $job,
+            'user' => $user,
+            'division' => $division,
+            'position' => $position
         ]);
     }
 
@@ -58,7 +69,27 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $slbUser = $request->get("slbUser");
+        $slbDivision = $request->get("slbDivision");
+        $slbPosition = $request->get("slbPosition");
+        $txtPercentageOfRole = $request->get("txtPercentageOfRole");
+        $dateStartTime = $request->get("dateStartTime");
+        $dateEndTime = $request->get("dateEndTime");
+
+        $obj = new Jobs([
+            'user_id' => $slbUser,
+            'division_id' => $slbDivision,
+            'position_id' => $slbPosition,
+            'percentageOfRole' => $txtPercentageOfRole,
+            'start_time' => $dateStartTime,
+            'end_time' => $dateEndTime,
+        ]);
+
+        if ($obj->save()) {
+            //Hiển thị thông báo check với điều kiện ngoài index
+            alert()->success('Cấu hình người dùng', 'Thành công');
+            return redirect('/job')->with('success', 'Lưu thông tin vị trí công việc thành công');
+        }
     }
 
     /**

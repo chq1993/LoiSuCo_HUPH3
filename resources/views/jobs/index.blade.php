@@ -1,6 +1,160 @@
 @extends('layouts.admin')
 @section('content_layout')
 
+
+
+<!-- Modal ADD NEW -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm mới vị trí công việc</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="myForm" action="{{ route('job.store') }}" onsubmit="return validateForm()" method="POST">
+                    @csrf
+                    <div class="form-row">
+                        <!-- Bắt đầu div form-row !-->
+                        <div class="form-group col-md-4">
+                            <label for="slbUser">Chọn người dùng</label>
+                            <select name="slbUser" id="slbUser" class="form-control" required>
+                                <option value="">--Chọn người dùng--</option>
+                                @foreach($user as $item)
+                                <option value="{{ $item->id }}">{{ $item->fullname }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="slbDivision">Chọn đơn vị</label>
+                            <select name="slbDivision" id="slbDivision" class="form-control" required>
+                                <option value="">--Chọn đơn vị--</option>
+                                @foreach($division as $division)
+                                <option value="{{ $division->id }}">{{ $division->name_division }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="slbPosition">Chọn chức vụ</label>
+                            <select name="slbPosition" id="slbPosition" class="form-control" required>
+                                <option value="">--Chọn chức vụ--</option>
+                                @foreach($position as $position)
+                                <option value="{{ $position->id }}">{{ $position->name_position }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> <!-- Kết thúc div form-row !-->
+                    <div class="form-row">
+                        <!-- Bắt đầu div form-row !-->
+                        <div class="form-group col-md-4">
+                            <label>Vai trò này chiếm số % công việc:</label>
+                            <div>
+                                <input data-parsley-type="number" type="text" name="txtPercentageOfRole"
+                                    id="txtPercentageOfRole" class="form-control" required placeholder="vd: 65.5" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Ngày bắt đầu nhận vai trò này</label>
+                            <input type="date" class="form-control" name="dateStartTime" id="dateStartTime" required />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Ngày kết thúc vai trò này</label>
+                            <input type="date" class="form-control" name="dateEndTime" id="dateEndTime" />
+                        </div>
+                    </div> <!-- Kết thúc div form-row !-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal ADD NEW -->
+
+<!-- Modal EDIT -->
+{{-- <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa thông tin vị trí công việc</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="myForm" action="{{ route('job.store') }}" onsubmit="return validateForm()" method="POST">
+                    @csrf
+                    <div class="form-row">
+                        <!-- Bắt đầu div form-row !-->
+                        <div class="form-group col-md-4">
+                            <label for="slbUser">Chọn người dùng</label>
+                            <select name="slbUser" id="slbUser_edit" class="form-control" required>
+                                <option value="">--Chọn người dùng--</option>
+                                @foreach($user as $item)
+                                <option value="{{ $item->id }}">{{ $item->fullname }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="slbDivision">Chọn đơn vị</label>
+                            <select name="slbDivision" id="slbDivision_edit" class="form-control" required>
+                                <option value="">--Chọn đơn vị--</option>
+                                @foreach($division as $division)
+                                <option value="{{ $division->id }}">{{ $division->name_division }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="slbPosition">Chọn chức vụ</label>
+                            <select name="slbPosition" id="slbPosition_edit" class="form-control" required>
+                                <option value="">--Chọn chức vụ--</option>
+                                @foreach($position as $position)
+                                <option value="{{ $position->id }}">{{ $position->name_position }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> <!-- Kết thúc div form-row !-->
+                    <div class="form-row">
+                        <!-- Bắt đầu div form-row !-->
+                        <div class="form-group col-md-4">
+                            <label>Vai trò này chiếm số % công việc:</label>
+                            <div>
+                                <input data-parsley-type="number" type="text" name="txtPercentageOfRole"
+                                    id="txtPercentageOfRole_edit" class="form-control" required
+                                    placeholder="vd: 65.5" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Ngày bắt đầu nhận vai trò này</label>
+                            <input type="date" class="form-control" name="dateStartTime" id="dateStartTime_edit"
+                                required />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Ngày kết thúc vai trò này</label>
+                            <input type="date" class="form-control" name="dateEndTime" id="dateEndTime_edit" />
+                        </div>
+                    </div> <!-- Kết thúc div form-row !-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div> --}}
+<!-- Modal EDIT -->
+
 <div class="content">
     <div class="container-fluid">
 
@@ -38,9 +192,15 @@
                                             name="fullnameAtRole" placeholder="Tìm kiếm...">
                                     </div>
                                 </form>
-                                <a href="{{route('role-manage.create')}}" style="margin: 19px;"
-                                    class="btn btn-primary waves-effect waves-light mx-0"><span>Phân quyền vị trí công việc</span>
-                                    <i class="far fa-question-circle ml-1"></i></a>
+                                {{-- <a href="{{route('role-manage.create')}}" style="margin: 19px;"
+                                class="btn btn-primary waves-effect waves-light mx-0"><span>Phân quyền vị trí công
+                                    việc</span>
+                                <i class="far fa-question-circle ml-1"></i></a> --}}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-primary waves-effect waves-light"
+                                    style="height: 50px" data-toggle="modal" data-target="#exampleModal">
+                                    Thêm mới vị trí công việc
+                                </button>
                             </section>
                             @if (session()->get('create-success'))
                             @include('sweetalert::alert')
@@ -91,9 +251,10 @@
                                                 <td> {{ $item->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <a href="{{ route('role-manage.edit', $item -> id) }}"
-                                                            class="btn btn-outline-primary waves-effect waves-light"><i
-                                                                class="far fa-edit"></i></a></a>
+                                                        {{-- <a href="{{ route('role-manage.edit', $item -> id) }}"
+                                                        class="btn btn-outline-primary waves-effect waves-light"><i
+                                                            class="far fa-edit"></i></a> --}}
+                                                        <button class="btn btn-outline-primary waves-effect waves-light far fa-edit editbtn"></button>
                                                         <form action="{{ route('role-manage.destroy', $item->id) }}"
                                                             method="post">
                                                             @csrf
@@ -127,5 +288,14 @@
     </div> <!-- container-fluid -->
 
 </div> <!-- content -->
+
+<script>
+    $(document).ready(function(){
+        $('.editbtn').on('click', function(){
+
+            $('#editmodal').modal('show');
+        });
+    });
+</script>
 
 @endsection

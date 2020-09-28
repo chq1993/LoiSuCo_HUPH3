@@ -42,9 +42,8 @@ Route::group(['middleware' => 'check_auth'], function () {
     Route::get('/dashboard', 'UserController@show_dashboard');
     // public
 
-    Route::resource('peer-assessment', 'PeerAssessmentController');
-    Route::resource('subordinate-assessment', 'SubordinateAssessmentController');
-    Route::resource('superior-assessment', 'SuperiorAssessmentController');
+
+
     Route::post('user/updaterole', 'UserController@updaterole')->name('user.updaterole');
     Route::get('/', function () {
         return view('layouts.admin');
@@ -55,21 +54,12 @@ Route::group(['middleware' => 'check_auth'], function () {
         Route::get('user/changeStatus', 'UserController@changeStatus')->name('user.changeStatus');
         Route::resource('user', 'UserController');
         Route::get('user/changeRole', 'UserController@choose_role')->name('user.changerole');
-        //Route của Quản lý câu hỏi
-        Route::resource('question-manage', 'QuestionManageController');
-        //Route của Quản lý form
-        Route::resource('form-manage', 'FormManageController');
-        Route::resource('answer-manage', 'AnswerManageController');
         Route::resource('division-manage', 'DivisionManageController');
         Route::resource('position-manage', 'PositionManageController');
-        Route::resource('plan-manage', 'PlanManageController');
         Route::resource('role-manage', 'RoleController');
         Route::resource('job', 'JobController');
-        Route::resource('config-fq', 'ConfigFormController');
-        Route::resource('config-aq', 'ConfigQuestionController');
 
         Route::resource('role-manage', 'RoleController');
-        Route::resource('comment-manage', 'CommentManageController');
 
         Route::get('/', function () {
             return view('layouts.admin');
