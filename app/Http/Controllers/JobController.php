@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Position;
+use App\Division;
+use App\Jobs;
+use Illuminate\Support\Facades\DB as DB;
 
-class CommentManageController extends Controller
+class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +17,27 @@ class CommentManageController extends Controller
      */
     public function index()
     {
-        $comments = DB::table('comment')->select('*');
-        $comments = $comments->paginate(5);
-        return view('comment-manage.index', compact('comments'));
+        $job = DB::table('jobs')
+            ->join('user', 'jobs.user_id', '=', 'user.id')
+            ->join('positions', 'jobs.position_id', '=', 'positions.id')
+            ->join('divisions', 'jobs.division_id', '=', 'divisions.id')
+            ->select(
+                'jobs.id',
+                'jobs.created_at',
+                'jobs.updated_at',
+                'jobs.percentageOfRole',
+                'jobs.start_time',
+                'jobs.end_time',
+                'divisions.name_division',
+                'positions.name_position',
+                'user.username',
+                'user.fullname'
+            )
+            ->get();
+
+        return view('jobs.index', [
+            'job' => $job
+        ]);
     }
 
     /**
@@ -27,7 +47,7 @@ class CommentManageController extends Controller
      */
     public function create()
     {
-        return view('comment-manage.create');
+        //
     }
 
     /**
@@ -38,15 +58,7 @@ class CommentManageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'label_comment' => 'required',
-            'content_comment' => 'required',
-        ]);
-
-        Comment::create($request->all());
-
-        return redirect()->route('comment-manage.index')
-            ->with('create-success', 'Thêm mới phản hồi thành công');
+        //
     }
 
     /**
@@ -57,9 +69,7 @@ class CommentManageController extends Controller
      */
     public function show($id)
     {
-        $comment = DB::table('comment')->where('id',$id)->get();
-        //dd($comment);
-        return view('comment-manage.show', compact('comment'));
+        //
     }
 
     /**
@@ -70,6 +80,7 @@ class CommentManageController extends Controller
      */
     public function edit($id)
     {
+        //
     }
 
     /**
@@ -92,8 +103,6 @@ class CommentManageController extends Controller
      */
     public function destroy($id)
     {
-        $comments = Comment::find($id);
-        $comments->delete();
-        return redirect()->route('comment-manage.index')->with('delete-success', 'Xóa đáp án thành công!');
+        //
     }
 }

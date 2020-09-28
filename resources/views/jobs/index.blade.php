@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="page-title-box">dddddđ
+                <div class="page-title-box">
                     <h4>
                         <span>Quản lý vị trí công việc</span>
                         <i class="fas fa-caret-down ml-1"></i>
@@ -27,7 +27,7 @@
                         <div class="card-body">
 
                             <h5>
-                                <span>Bảng danh sách người dùng đã phân quyền</span>
+                                <span>Bảng danh sách người dùng đã phân vị trí công việc</span>
                                 <i class="fas fa-list-alt ml-2"></i>
                             </h5>
                             <p class="text-muted m-b-30"></p>
@@ -39,8 +39,7 @@
                                     </div>
                                 </form>
                                 <a href="{{route('role-manage.create')}}" style="margin: 19px;"
-                                    class="btn btn-primary waves-effect waves-light mx-0"><span>Phân quyền người
-                                        dùng</span>
+                                    class="btn btn-primary waves-effect waves-light mx-0"><span>Phân quyền vị trí công việc</span>
                                     <i class="far fa-question-circle ml-1"></i></a>
                             </section>
                             @if (session()->get('create-success'))
@@ -75,7 +74,7 @@
                                             @php
                                             $stt = 0;
                                             @endphp
-                                            @foreach($role as $item)
+                                            @foreach($job as $item)
                                             @php
                                             $stt++;
                                             @endphp

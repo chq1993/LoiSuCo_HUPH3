@@ -41,6 +41,7 @@ Route::group(['middleware' => 'check_auth'], function () {
     Route::get('/logout', 'UserController@logout')->name('user.logout');
     Route::get('/dashboard', 'UserController@show_dashboard');
     // public
+
     Route::resource('peer-assessment', 'PeerAssessmentController');
     Route::resource('subordinate-assessment', 'SubordinateAssessmentController');
     Route::resource('superior-assessment', 'SuperiorAssessmentController');
@@ -63,6 +64,7 @@ Route::group(['middleware' => 'check_auth'], function () {
         Route::resource('position-manage', 'PositionManageController');
         Route::resource('plan-manage', 'PlanManageController');
         Route::resource('role-manage', 'RoleController');
+        Route::resource('job', 'JobController');
         Route::resource('config-fq', 'ConfigFormController');
         Route::resource('config-aq', 'ConfigQuestionController');
 
