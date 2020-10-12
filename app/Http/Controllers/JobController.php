@@ -111,7 +111,8 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        //
+        $job = DB::table('jobs')->join('user', 'jobs.user_id', '=', 'user.id')->join('positions', 'jobs.position_id', '=', 'positions.id')->join('divisions', 'jobs.division_id', '=', 'divisions.id')->select('jobs.id','jobs.user_id','jobs.position_id','jobs.division_id','jobs.created_at','jobs.updated_at','jobs.percentageOfRole', 'jobs.start_time', 'jobs.end_time', 'divisions.name_division', 'positions.name_position', 'user.username', 'user.fullname')->where('jobs.id', $id)->first();
+        return response()->json(['data' => $job], 200);
     }
 
     /**
@@ -135,5 +136,11 @@ class JobController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getJobById($id)
+    {
+        $job = Jobs::find($id);
+        return response()->json($job);
     }
 }

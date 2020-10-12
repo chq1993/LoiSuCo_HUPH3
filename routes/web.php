@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,7 @@ Route::group(['middleware' => 'check_auth'], function () {
         Route::resource('job', 'JobController');
 
         Route::resource('role-manage', 'RoleController');
-
+        Route::get('/job/{id}', [JobController::class,'getJobById'])->name('job.getJobById');
         Route::get('/', function () {
             return view('layouts.admin');
         });
